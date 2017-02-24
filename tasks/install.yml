@@ -8,7 +8,7 @@
     dest: '/usr/local/nvm'
     version: '{{ nvm_version }}'
     accept_hostkey: true
-  when: {{ nvm_system_install }}
+  when: '{{ nvm_system_install }}'
 
 - name: install - Setup User NVM
   git:

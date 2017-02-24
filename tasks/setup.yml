@@ -13,7 +13,7 @@
 - name: setup - Install node versions on system
   shell: bash -lc 'nvm install {{ item }}'
   register: output
-  changed_when: ''already installed.' not in output.stderr'
+  changed_when: "'already installed.' not in output.stderr"
   with_items: '{{ nvm_node_versions }}'
 
 - name: setup - Install node versions on users
@@ -24,15 +24,15 @@
     - '{{ nvm_user_installs }}'
     - '{{ nvm_install_node_versions }}'
   register: output
-  changed_when: ''already installed.' not in output.stderr'
+  changed_when: "'already installed.' not in output.stderr"
 
 - name: setup - Create alias directory for system
   file: path='/usr/local/nvm/alias' state=directory
-  when: {{ nvm_system_install }}
+  when: '{{ nvm_system_install }}'
 
 - name: setup - Set {{ nvm_default_node_version }} as default
   copy: dest='/usr/local/nvm/alias/default' content='{{ nvm_default_node_version }}'
-  when: {{ nvm_system_install }}
+  when: '{{ nvm_system_install }}'
 
 - name: setup - Create alias directory for users
   file: path='~/.nvm/alias' state=directory
@@ -48,7 +48,7 @@
 
 - name: setup - Install node packages on system
   shell: bash -lc 'nvm use {{ item.0 }} && npm install -g {{ item.1 }}'
-  when: {{ nvm_system_install }}
+  when: '{{ nvm_system_install }}'
   with_nested:
     - '{{ nvm_install_node_versions }}'
     - '{{ nvm_install_packages }}'
