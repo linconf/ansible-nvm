@@ -14,7 +14,8 @@
   shell: bash -lc 'nvm install {{ item }}'
   register: output
   changed_when: "'already installed.' not in output.stderr"
-  with_items: '{{ nvm_node_versions }}'
+  when: '{{ nvm_system_install }}'
+  with_items: '{{ nvm_install_node_versions }}'
 
 - name: setup - Install node versions on users
   shell: bash -lc 'nvm install {{ item.1 }}'
